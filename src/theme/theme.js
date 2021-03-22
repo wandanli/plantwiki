@@ -6,17 +6,18 @@ const theme = {
     secondary: "#cc3053",
     greyLight: "#f5f5f5",
     greyDark: "#c2c2c2",
-    black: "#212121",
+    black: "#4c4c4c",
     white: "fff",
   },
   fontFamily: {
-    heading: "Righteous",
-    paragraph: "Barlow",
+    heading: "Heebo, sans-serif",
+    paragraph: "Barlow, sans-serif",
   },
   fontSize: {
     small: "1.4rem",
     medium: "1.6rem",
     large: "1.8rem",
+    xLarge: "2rem",
   },
   fontWeight: {
     normal: 400,

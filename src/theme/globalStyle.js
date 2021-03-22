@@ -1,7 +1,6 @@
-import { createGlobalStyle } from "styled-components";
+import styled, { css, createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
-
 html {
     font-size: 62.5%; /* 16px * 62.5% = 10px -> 1rem = 10px */
 }
@@ -23,5 +22,65 @@ body {
   color: ${(props) => props.theme.color.black};
 }
 `;
+
+export const Container = styled.div`
+  width: 100%;
+  max-width: calc(1110px + 24px + 24px);
+  min-width: 280px;
+  margin: 0 auto;
+  padding-top: ${(props) => props.paddingT || "24px"};
+  padding-bottom: ${(props) => props.paddingB || "24px"};
+  padding-right: ${(props) => props.paddingR || "24px"};
+  padding-left: ${(props) => props.paddingL || "24px"};
+`;
+
+export const Wrapper = styled.div`
+  display: flex;
+  flex-wrap: ${(props) => props.flexWrap || "wrap"};
+  justify-content: ${(props) => props.flexJC || "center"};
+  align-items: ${(props) => props.flexAI || "center"};
+  margin: ${(props) => props.margin || ""};
+`;
+
+export const Heading = styled.h1`
+  text-transform: capitalize;
+  font-family: ${(props) => props.theme.fontFamily.heading};
+  font-weight: bolder;
+  ${(props) =>
+    props.h1 &&
+    css`
+      font-size: 3.2rem;
+    `};
+  ${(props) =>
+    props.h2 &&
+    css`
+      font-size: 2.4rem;
+    `};
+  ${(props) =>
+    props.h3 &&
+    css`
+      font-size: 2.08rem;
+    `};
+  ${(props) =>
+    props.h4 &&
+    css`
+      font-size: 1.6rem;
+    `};
+  ${(props) =>
+    props.h5 &&
+    css`
+      font-size: 1.28rem;
+    `};
+  ${(props) =>
+    props.h6 &&
+    css`
+      font-size: 1.12rem;
+    `};
+`;
+
+export const Emoji = styled.span.attrs((props) => ({
+  role: "img",
+  "aria-label": props.ariaLabel,
+}))``;
 
 export default GlobalStyle;
