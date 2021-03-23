@@ -7,7 +7,7 @@ import {
   Paragraph,
 } from "../../theme/globalStyle";
 import SearchBar from "./SearchBar";
-import PlantCard from "./PlantCard";
+import Plants from "./Plants";
 
 const SearchPage = () => {
   return (
@@ -30,11 +30,7 @@ const SearchPage = () => {
         </a>
       </Paragraph>
       <Wrapper margin="40px 10px 20px 10px">
-        <PlantCard />
-        <PlantCard />
-        <PlantCard />
-        <PlantCard />
-        <PlantCard />
+        <Plants />
       </Wrapper>
     </Container>
   );
