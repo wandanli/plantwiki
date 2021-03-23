@@ -28,14 +28,12 @@ export const Container = styled.div`
   max-width: calc(1110px + 24px + 24px);
   min-width: 280px;
   margin: 0 auto;
-  padding-top: ${(props) => props.paddingT || "24px"};
-  padding-bottom: ${(props) => props.paddingB || "24px"};
-  padding-right: ${(props) => props.paddingR || "24px"};
-  padding-left: ${(props) => props.paddingL || "24px"};
+  padding: ${(props) => props.padding || "24px 24px 24px 24px"};
 `;
 
 export const Wrapper = styled.div`
   display: flex;
+  flex-direction: ${(props) => props.flexDirection || "row"};
   flex-wrap: ${(props) => props.flexWrap || "wrap"};
   justify-content: ${(props) => props.flexJC || "center"};
   align-items: ${(props) => props.flexAI || "center"};
@@ -80,7 +78,20 @@ export const Heading = styled.h1`
 
 export const Emoji = styled.span.attrs((props) => ({
   role: "img",
-  "aria-label": props.ariaLabel,
+  // "aria-label": props.ariaLabel,
 }))``;
+
+export const Paragraph = styled.p`
+  margin: ${(props) => props.margin || ""};
+  text-align: ${(props) => props.textAlign || "center"};
+`;
+
+export const Image = styled.img`
+  margin: 10px;
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  object-position: center center;
+`;
 
 export default GlobalStyle;
