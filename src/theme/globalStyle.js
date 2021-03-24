@@ -87,7 +87,6 @@ export const Paragraph = styled.p`
 `;
 
 export const Image = styled.img`
-  margin: 10px;
   width: 300px;
   height: 300px;
   object-fit: cover;
