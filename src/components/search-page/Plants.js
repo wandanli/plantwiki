@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import axios from "axios";
 import PlantCard from "./PlantCard";
 import { Wrapper } from "../../theme/globalStyle";
+import PageButton from "./PageButton";
 
 const Plants = () => {
   const [plants, setPlants] = useState([]);
@@ -12,8 +13,13 @@ const Plants = () => {
         "https://scandalous-classic-wolverine.glitch.me"
       );
       const JWT = JWTResponse.data.token;
-      const baseUrl = `https://trefle.io/api/v1/plants?token=${JWT}`;
-      const plantsResponse = await axios.get(baseUrl);
+      const baseUrl = "https://trefle.io/api/v1/plants";
+      const plantsResponse = await axios.get(baseUrl, {
+        params: {
+          token: JWT,
+          page: 3,
+        },
+      });
       setPlants(plantsResponse.data.data);
       console.log(plants);
     } catch (error) {
@@ -26,18 +32,21 @@ const Plants = () => {
   }, []);
 
   return (
-    <Wrapper>
-      {plants.map((plant, index) => (
-        <PlantCard
-          key={index}
-          name={plant.common_name}
-          image={plant.image_url}
-          family={plant.family_common_name}
-          genus={plant.genus}
-          link={plant.links.plant}
-        />
-      ))}
-    </Wrapper>
+    <Fragment>
+      <Wrapper>
+        {plants.map((plant, index) => (
+          <PlantCard
+            key={index}
+            name={plant.common_name}
+            image={plant.image_url}
+            family={plant.family}
+            genus={plant.genus}
+            link={plant.links.plant}
+          />
+        ))}
+      </Wrapper>
+      <PageButton />
+    </Fragment>
   );
 };
 

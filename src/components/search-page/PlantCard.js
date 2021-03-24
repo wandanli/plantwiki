@@ -30,8 +30,6 @@ const StyledImage = styled(Image)`
 `;
 
 const PlantCard = ({ name, image, family, genus, link }) => {
-  const familyLastWordIndex = family.lastIndexOf(" ");
-  family = family.substring(0, familyLastWordIndex);
   return (
     <StyledWrapper
       margin="40px 20px"
@@ -46,7 +44,7 @@ const PlantCard = ({ name, image, family, genus, link }) => {
         src={image}
       ></StyledImage>
       <Wrapper margin="20px 20px" flexDirection="column" flexAI="flex-start">
-        <Heading h3 margin="0 0 16px 0">
+        <Heading h4 margin="0 0 16px 0">
           {name}
         </Heading>
         <Paragraph margin="0 0 8px 0">Family: {family}</Paragraph>

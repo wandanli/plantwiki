@@ -114,4 +114,14 @@ export const Image = styled.img`
   object-position: center center;
 `;
 
+export const Button = styled.button`
+  background: none;
+  /* can not be passed to custom button on other component */
+  /* cursor: pointer;
+  &:focus,
+  &:active {
+    outline: none;
+  } */
+`;
+
 export default GlobalStyle;
