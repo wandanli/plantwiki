@@ -1,16 +1,16 @@
 import React from "react";
 import { Wrapper, Paragraph, Image } from "../../theme/globalStyle";
 
-const PlantCard = () => {
+const PlantCard = ({ name, image, family, genus, link }) => {
+  const familyLastWordIndex = family.lastIndexOf(" ");
+  family = family.substring(0, familyLastWordIndex);
   return (
     <Wrapper flexDirection="column">
-      <Image
-        width="300"
-        height="300"
-        alt="leaves"
-        src="https://cdn.pixabay.com/photo/2021/03/11/10/32/leaves-6086723_1280.jpg"
-      ></Image>
-      <Paragraph margin="20px 0 20px 0">Name</Paragraph>
+      <Image width="300" height="300" alt={name} src={image}></Image>
+      <Paragraph margin="20px 0 20px 0">Common Name: {name}</Paragraph>
+      <Paragraph margin="20px 0 20px 0">Family: {family}</Paragraph>
+      <Paragraph margin="20px 0 20px 0">Genus: {genus}</Paragraph>
+      <Paragraph margin="20px 0 20px 0">Learn More:{link}</Paragraph>
     </Wrapper>
   );
 };
