@@ -41,9 +41,20 @@ export const Wrapper = styled.div`
 `;
 
 export const Heading = styled.h1`
+  margin: ${(props) => props.margin || ""};
   text-transform: capitalize;
   font-family: ${(props) => props.theme.fontFamily.heading};
   font-weight: bolder;
+  ${(props) =>
+    props.primary &&
+    css`
+      color: ${(props) => props.theme.color.primary}; ;
+    `};
+  ${(props) =>
+    props.secondary &&
+    css`
+      color: ${(props) => props.theme.color.secondary}; ;
+    `};
   ${(props) =>
     props.h1 &&
     css`
@@ -84,6 +95,16 @@ export const Emoji = styled.span.attrs((props) => ({
 export const Paragraph = styled.p`
   margin: ${(props) => props.margin || ""};
   text-align: ${(props) => props.textAlign || "center"};
+  ${(props) =>
+    props.large &&
+    css`
+      font-size: 1.8rem;
+    `};
+  ${(props) =>
+    props.small &&
+    css`
+      font-size: 1.4rem;
+    `};
 `;
 
 export const Image = styled.img`

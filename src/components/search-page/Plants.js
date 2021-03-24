@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PlantCard from "./PlantCard";
+import { Wrapper } from "../../theme/globalStyle";
 
 const Plants = () => {
   const [plants, setPlants] = useState([]);
@@ -25,7 +26,7 @@ const Plants = () => {
   }, []);
 
   return (
-    <div>
+    <Wrapper>
       {plants.map((plant, index) => (
         <PlantCard
           key={index}
@@ -36,7 +37,7 @@ const Plants = () => {
           link={plant.links.plant}
         />
       ))}
-    </div>
+    </Wrapper>
   );
 };
 
