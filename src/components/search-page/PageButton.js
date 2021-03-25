@@ -1,11 +1,11 @@
-import React, { useState, Fragment } from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
-import { Button } from "../../theme/globalStyle";
+import { Button, Wrapper, MinWidthBreakpoints } from "../../theme/globalStyle";
 import { FaArrowCircleRight, FaArrowCircleLeft } from "react-icons/fa";
 
 const StyledButton = styled(Button)`
   position: fixed;
-  top: 50%;
+  top: 50vh;
   width: 4rem;
   height: 4rem;
   border-radius: 2rem;
@@ -14,17 +14,30 @@ const StyledButton = styled(Button)`
   ${(props) =>
     props.right &&
     css`
-      right: 40px;
+      right: 10px;
     `};
   ${(props) =>
     props.left &&
     css`
-      left: 40px;
+      left: 10px;
     `};
   &:focus,
   &:active {
     outline: none;
   }
+
+  @media ${MinWidthBreakpoints.xLarge} {
+    ${(props) =>
+      props.right &&
+      css`
+        right: calc((100% - 1100px) / 2 - 40px);
+      `};
+    ${(props) =>
+      props.left &&
+      css`
+        left: calc((100% - 1100px) / 2 - 40px);
+      `};
+  } ;
 `;
 
 const PageButton = ({ handleClick }) => {
@@ -43,7 +56,7 @@ const PageButton = ({ handleClick }) => {
   };
 
   return (
-    <Fragment>
+    <Wrapper>
       <StyledButton
         right
         onMouseEnter={() => setIconColorRight("#FF9000")}
@@ -61,7 +74,7 @@ const PageButton = ({ handleClick }) => {
       >
         <FaArrowCircleLeft style={arrowIconLeft} />
       </StyledButton>
-    </Fragment>
+    </Wrapper>
   );
 };
 

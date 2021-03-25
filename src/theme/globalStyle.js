@@ -25,7 +25,7 @@ body {
 
 export const Container = styled.div`
   width: 100%;
-  max-width: calc(1110px + 24px + 24px);
+  max-width: calc(1100px + 24px + 24px);
   min-width: 280px;
   margin: 0 auto;
   padding: ${(props) => props.padding || "24px 24px 24px 24px"};
@@ -123,5 +123,19 @@ export const Button = styled.button`
     outline: none;
   } */
 `;
+
+export const MinWidthBreakpoints = {
+  small: `(min-width: 480px)`,
+  medium: `(min-width: 768px)`,
+  large: `(min-width: 1140px)`,
+  xLarge: `(min-width: 1500px)`,
+};
+
+export const MaxWidthBreakpoints = {
+  small: `(max-width: 479px)`,
+  medium: `(max-width: 767px)`,
+  large: `(max-width: 1139px)`,
+  xLarge: `(max-width: 1499px)`,
+};
 
 export default GlobalStyle;

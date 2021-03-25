@@ -43,7 +43,7 @@ const Plants = () => {
 
   return (
     <Fragment>
-      <Wrapper>
+      <Wrapper margin="40px 10px 20px 10px">
         {plants.map((plant, index) => (
           <PlantCard
             key={index}

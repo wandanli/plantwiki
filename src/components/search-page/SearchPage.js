@@ -29,9 +29,7 @@ const SearchPage = () => {
           https://trefle.io/
         </a>
       </Paragraph>
-      <Wrapper margin="40px 10px 20px 10px">
-        <Plants />
-      </Wrapper>
+      <Plants />
     </Container>
   );
 };
