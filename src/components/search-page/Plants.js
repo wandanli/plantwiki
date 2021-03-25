@@ -39,6 +39,9 @@ const Plants = () => {
     if (arrow === "left" && page > 1) {
       setPage(page - 1);
     }
+    if (arrow === "left" && page === 1) {
+      alert("It's already the first page.");
+    }
   };
 
   return (
