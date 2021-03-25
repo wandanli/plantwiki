@@ -32,15 +32,12 @@ const Plants = () => {
     getPlants();
   }, [page]);
 
-  const handleClickRight = () => {
-    setPage(page + 1);
-  };
-
-  const handleClickLeft = () => {
-    if (page > 1) {
+  const handleClick = (arrow) => {
+    if (arrow === "right") {
+      setPage(page + 1);
+    }
+    if (arrow === "left" && page > 1) {
       setPage(page - 1);
-    } else {
-      setPage(1);
     }
   };
 
@@ -58,10 +55,7 @@ const Plants = () => {
           />
         ))}
       </Wrapper>
-      <PageButton
-        handleClickRight={handleClickRight}
-        handleClickLeft={handleClickLeft}
-      />
+      <PageButton handleClick={handleClick} />
     </Fragment>
   );
 };
