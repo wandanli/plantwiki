@@ -27,7 +27,8 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const PageButton = () => {
+const PageButton = ({ handleClickRight, handleClickLeft }) => {
+  // could not find a good way for hover
   const [iconColorRight, setIconColorRight] = useState("#ffa83f");
   const [iconColorLeft, setIconColorLeft] = useState("#ffa83f");
 
@@ -47,6 +48,7 @@ const PageButton = () => {
         right
         onMouseEnter={() => setIconColorRight("#FF9000")}
         onMouseLeave={() => setIconColorRight("#ffa83f")}
+        onClick={handleClickRight}
       >
         <FaArrowCircleRight style={arrowIconRight} />
       </StyledButton>
@@ -54,6 +56,7 @@ const PageButton = () => {
         left
         onMouseEnter={() => setIconColorLeft("#FF9000")}
         onMouseLeave={() => setIconColorLeft("#ffa83f")}
+        onClick={handleClickLeft}
       >
         <FaArrowCircleLeft style={arrowIconLeft} />
       </StyledButton>

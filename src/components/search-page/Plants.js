@@ -6,6 +6,7 @@ import PageButton from "./PageButton";
 
 const Plants = () => {
   const [plants, setPlants] = useState([]);
+  const [page, setPage] = useState(1);
   //   const [specie, setSpecie] = useState({});
   const getPlants = async () => {
     try {
@@ -17,7 +18,7 @@ const Plants = () => {
       const plantsResponse = await axios.get(baseUrl, {
         params: {
           token: JWT,
-          page: 3,
+          page: page,
         },
       });
       setPlants(plantsResponse.data.data);
@@ -29,7 +30,19 @@ const Plants = () => {
 
   useEffect(() => {
     getPlants();
-  }, []);
+  }, [page]);
+
+  const handleClickRight = () => {
+    setPage(page + 1);
+  };
+
+  const handleClickLeft = () => {
+    if (page > 1) {
+      setPage(page - 1);
+    } else {
+      setPage(1);
+    }
+  };
 
   return (
     <Fragment>
@@ -45,7 +58,10 @@ const Plants = () => {
           />
         ))}
       </Wrapper>
-      <PageButton />
+      <PageButton
+        handleClickRight={handleClickRight}
+        handleClickLeft={handleClickLeft}
+      />
     </Fragment>
   );
 };
