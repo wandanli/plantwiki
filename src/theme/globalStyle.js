@@ -108,8 +108,8 @@ export const Paragraph = styled.p`
 `;
 
 export const Image = styled.img`
-  width: 300px;
-  height: 300px;
+  /* width: 300px;
+  height: 300px; */
   object-fit: cover;
   object-position: center center;
 `;

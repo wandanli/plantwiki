@@ -1,10 +1,31 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
-import { Wrapper } from "../../theme/globalStyle";
 import { IconContext } from "react-icons";
 import { FaSearch } from "react-icons/fa";
+import { SearchContext } from "./SearchPage";
 
-const SearchBarWrapper = styled(Wrapper)`
+// const SearchBarWrapper = styled(Wrapper)`
+//   width: 90%;
+//   max-width: 300px;
+//   margin: 0 auto;
+//   padding: 10px;
+//   border: 1px solid ${(props) => props.theme.color.primary};
+//   border-radius: 8px;
+// `;
+
+const Input = styled.input`
+  width: 90%;
+  border-right: 1px solid ${(props) => props.theme.color.primary};
+  font-size: ${(props) => props.theme.fontSize.xLarge};
+  color: ${(props) => props.theme.color.primary};
+  :focus {
+    outline: none;
+  }
+`;
+
+const Form = styled.form`
+  display: flex;
+  justify-content: space-between;
   width: 90%;
   max-width: 300px;
   margin: 0 auto;
@@ -13,18 +34,27 @@ const SearchBarWrapper = styled(Wrapper)`
   border-radius: 8px;
 `;
 
-const Input = styled.input`
-  font-size: ${(props) => props.theme.fontSize.xLarge};
-  color: ${(props) => props.theme.color.primary};
-  :focus {
-    outline: none;
-  }
-`;
-
 const SearchBar = () => {
+  const [search, setSearch] = useContext(SearchContext);
+  const [query, setQuery] = useContext(SearchContext);
+  const updateSearch = (e) => {
+    setSearch(e.target.value);
+    console.log(search);
+  };
+
+  const getSearch = (e) => {
+    e.preventDefault();
+    setQuery(search);
+  };
+
   return (
-    <SearchBarWrapper flexJC="space-between">
-      <Input placeholder="Search..."></Input>
+    <Form onSubmit={getSearch}>
+      <Input
+        placeholder="Search..."
+        type="search"
+        value={search}
+        onChange={updateSearch}
+      ></Input>
       <IconContext.Provider
         value={
           {
@@ -41,7 +71,7 @@ const SearchBar = () => {
           <FaSearch />
         </div>
       </IconContext.Provider>
-    </SearchBarWrapper>
+    </Form>
   );
 };
 

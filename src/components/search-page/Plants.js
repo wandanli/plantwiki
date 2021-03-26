@@ -1,12 +1,18 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect, Fragment, useContext } from "react";
 import axios from "axios";
+import { trackPromise } from "react-promise-tracker";
+import { usePromiseTracker } from "react-promise-tracker";
 import PlantCard from "./PlantCard";
-import { Wrapper } from "../../theme/globalStyle";
+import { Wrapper, Image } from "../../theme/globalStyle";
 import PageButton from "./PageButton";
+import LoadingSpinner from "../../images/Spinner-2s-200px.svg";
+import { SearchContext } from "./SearchPage";
 
 const Plants = () => {
   const [plants, setPlants] = useState([]);
   const [page, setPage] = useState(1);
+  const { promiseInProgress } = usePromiseTracker();
+  const [query, setQuery] = useContext(SearchContext);
   //   const [specie, setSpecie] = useState({});
   const getPlants = async () => {
     try {
@@ -14,9 +20,14 @@ const Plants = () => {
         "https://scandalous-classic-wolverine.glitch.me"
       );
       const JWT = JWTResponse.data.token;
-      const baseUrl = "https://trefle.io/api/v1/plants";
+      const baseUrl = `${
+        query
+          ? "https://trefle.io/api/v1/plants/search"
+          : "https://trefle.io/api/v1/plants"
+      }`;
       const plantsResponse = await axios.get(baseUrl, {
         params: {
+          q: query,
           token: JWT,
           page: page,
         },
@@ -29,8 +40,8 @@ const Plants = () => {
   };
 
   useEffect(() => {
-    getPlants();
-  }, [page]);
+    trackPromise(getPlants());
+  }, [query, page]);
 
   const handleClick = (arrow) => {
     if (arrow === "right") {
@@ -46,6 +57,11 @@ const Plants = () => {
 
   return (
     <Fragment>
+      <Wrapper>
+        {promiseInProgress === true ? (
+          <Image width="100" height="100" src={LoadingSpinner}></Image>
+        ) : null}
+      </Wrapper>
       <Wrapper margin="40px 10px 20px 10px">
         {plants.map((plant, index) => (
           <PlantCard

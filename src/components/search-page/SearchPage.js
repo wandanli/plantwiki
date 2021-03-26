@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext, useState } from "react";
 import {
   Container,
   Heading,
@@ -9,6 +9,18 @@ import {
 import SearchBar from "./SearchBar";
 import Plants from "./Plants";
 
+export const SearchContext = createContext();
+
+export const SearchProvider = ({ children }) => {
+  const [search, setSearch] = useState("");
+  const [query, setQuery] = useState("");
+  return (
+    <SearchContext.Provider value={([search, setSearch], [query, setQuery])}>
+      {children}
+    </SearchContext.Provider>
+  );
+};
+
 const SearchPage = () => {
   return (
     <Container>
@@ -18,18 +30,20 @@ const SearchPage = () => {
           <Emoji aria-label="leaf"> 🌿 </Emoji>
         </Heading>
       </Wrapper>
-      <SearchBar />
-      <Paragraph margin="20px 0 20px 0">
-        Data from{" "}
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href={"https://trefle.io/"}
-        >
-          https://trefle.io/
-        </a>
-      </Paragraph>
-      <Plants />
+      <SearchProvider>
+        <SearchBar />
+        <Paragraph margin="20px 0 20px 0">
+          Data from{" "}
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={"https://trefle.io/"}
+          >
+            https://trefle.io/
+          </a>
+        </Paragraph>
+        <Plants />
+      </SearchProvider>
     </Container>
   );
 };
