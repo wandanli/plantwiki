@@ -6,7 +6,7 @@ import { IconContext } from "react-icons";
 import { FaSearch } from "react-icons/fa";
 
 const StyledWrapper = styled(Wrapper)`
-  align-items: flex-start;
+  align-items: flex-end;
   width: 90%;
   max-width: 300px;
   margin: 0 auto;
@@ -16,6 +16,7 @@ const StyledWrapper = styled(Wrapper)`
 `;
 
 const Input = styled.input`
+  display: block;
   width: 90%;
   padding-left: 10px;
   font-size: ${(props) => props.theme.fontSize.xLarge};
@@ -46,12 +47,10 @@ const SearchBar = () => {
           // })
         }
       >
-        <div>
-          <FaSearch />
-        </div>
+        <FaSearch />
       </IconContext.Provider>
       <Input
-        placeholder="Search..."
+        placeholder="search..."
         type="search"
         value={search}
         onChange={updateSearch}

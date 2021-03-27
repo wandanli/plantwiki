@@ -43,6 +43,10 @@ const Plants = () => {
     trackPromise(getPlants());
   }, [search, page]);
 
+  useEffect(() => {
+    setPage(1);
+  }, [search]);
+
   const handleClick = (arrow) => {
     if (arrow === "right") {
       setPage(page + 1);
