@@ -1,23 +1,12 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
+import { SearchContext } from "./SearchPage";
+import { Wrapper } from "../../theme/globalStyle";
 import { IconContext } from "react-icons";
 import { FaSearch } from "react-icons/fa";
-import { SearchContext } from "./SearchPage";
-import { Button } from "../../theme/globalStyle";
 
-const Input = styled.input`
-  width: 90%;
-  border-right: 1px solid ${(props) => props.theme.color.primary};
-  font-size: ${(props) => props.theme.fontSize.xLarge};
-  color: ${(props) => props.theme.color.primary};
-  :focus {
-    outline: none;
-  }
-`;
-
-const Form = styled.form`
-  display: flex;
-  justify-content: space-between;
+const StyledWrapper = styled(Wrapper)`
+  align-items: flex-start;
   width: 90%;
   max-width: 300px;
   margin: 0 auto;
@@ -26,48 +15,48 @@ const Form = styled.form`
   border-radius: 8px;
 `;
 
+const Input = styled.input`
+  width: 90%;
+  padding-left: 10px;
+  font-size: ${(props) => props.theme.fontSize.xLarge};
+  color: ${(props) => props.theme.color.primary};
+  :focus {
+    outline: none;
+  }
+`;
+
 const SearchBar = () => {
-  const { search, query } = useContext(SearchContext);
-  const [stateSearch, setStateSearch] = search;
-  const [stateQuery, setStateQuery] = query;
+  const [search, setSearch] = useContext(SearchContext);
 
   const updateSearch = (e) => {
-    setStateSearch(e.target.value);
-    console.log(stateSearch);
-  };
-
-  const getSearch = (e) => {
-    e.preventDefault();
-    setStateQuery(stateSearch);
+    setSearch(e.target.value);
   };
 
   return (
-    <Form onSubmit={getSearch}>
+    <StyledWrapper>
+      <IconContext.Provider
+        value={
+          {
+            color: "#06B49A", //how to use theme.color here?
+            size: "2rem",
+          }
+          // (props) => ({
+          //   color: props.theme.color.primary,
+          //   size: "2rem",
+          // })
+        }
+      >
+        <div>
+          <FaSearch />
+        </div>
+      </IconContext.Provider>
       <Input
         placeholder="Search..."
         type="search"
-        value={stateSearch}
+        value={search}
         onChange={updateSearch}
       ></Input>
-      <Button type="submit">
-        <IconContext.Provider
-          value={
-            {
-              color: "#06B49A", //how to use theme.color here?
-              size: "2rem",
-            }
-            // (props) => ({
-            //   color: props.theme.color.primary,
-            //   size: "2rem",
-            // })
-          }
-        >
-          <div>
-            <FaSearch />
-          </div>
-        </IconContext.Provider>
-      </Button>
-    </Form>
+    </StyledWrapper>
   );
 };
 

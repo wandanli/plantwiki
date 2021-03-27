@@ -13,11 +13,8 @@ export const SearchContext = createContext();
 
 export const SearchProvider = (props) => {
   const [search, setSearch] = useState("");
-  const [query, setQuery] = useState("");
   return (
-    <SearchContext.Provider
-      value={{ search: [search, setSearch], query: [query, setQuery] }}
-    >
+    <SearchContext.Provider value={[search, setSearch]}>
       {props.children}
     </SearchContext.Provider>
   );

@@ -12,9 +12,7 @@ const Plants = () => {
   const [plants, setPlants] = useState([]);
   const [page, setPage] = useState(1);
   const { promiseInProgress } = usePromiseTracker();
-  const { search, query } = useContext(SearchContext);
-  const [stateSearch, setStateSearch] = search;
-  const [stateQuery, setStateQuery] = query;
+  const [search, setSearch] = useContext(SearchContext);
   //   const [specie, setSpecie] = useState({});
   const getPlants = async () => {
     try {
@@ -23,13 +21,13 @@ const Plants = () => {
       );
       const JWT = JWTResponse.data.token;
       const baseUrl = `${
-        stateQuery
+        search
           ? "https://trefle.io/api/v1/plants/search"
           : "https://trefle.io/api/v1/plants"
       }`;
       const plantsResponse = await axios.get(baseUrl, {
         params: {
-          q: stateQuery,
+          q: search,
           token: JWT,
           page: page,
         },
@@ -43,7 +41,7 @@ const Plants = () => {
 
   useEffect(() => {
     trackPromise(getPlants());
-  }, [stateQuery, page]);
+  }, [search, page]);
 
   const handleClick = (arrow) => {
     if (arrow === "right") {
