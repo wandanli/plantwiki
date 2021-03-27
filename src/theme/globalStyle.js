@@ -116,12 +116,11 @@ export const Image = styled.img`
 
 export const Button = styled.button`
   background: none;
-  /* can not be passed to custom button on other component */
-  /* cursor: pointer;
+  cursor: pointer;
   &:focus,
   &:active {
     outline: none;
-  } */
+  }
 `;
 
 export const MinWidthBreakpoints = {

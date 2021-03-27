@@ -11,12 +11,14 @@ import Plants from "./Plants";
 
 export const SearchContext = createContext();
 
-export const SearchProvider = ({ children }) => {
+export const SearchProvider = (props) => {
   const [search, setSearch] = useState("");
   const [query, setQuery] = useState("");
   return (
-    <SearchContext.Provider value={([search, setSearch], [query, setQuery])}>
-      {children}
+    <SearchContext.Provider
+      value={{ search: [search, setSearch], query: [query, setQuery] }}
+    >
+      {props.children}
     </SearchContext.Provider>
   );
 };

@@ -3,15 +3,7 @@ import styled from "styled-components";
 import { IconContext } from "react-icons";
 import { FaSearch } from "react-icons/fa";
 import { SearchContext } from "./SearchPage";
-
-// const SearchBarWrapper = styled(Wrapper)`
-//   width: 90%;
-//   max-width: 300px;
-//   margin: 0 auto;
-//   padding: 10px;
-//   border: 1px solid ${(props) => props.theme.color.primary};
-//   border-radius: 8px;
-// `;
+import { Button } from "../../theme/globalStyle";
 
 const Input = styled.input`
   width: 90%;
@@ -35,16 +27,18 @@ const Form = styled.form`
 `;
 
 const SearchBar = () => {
-  const [search, setSearch] = useContext(SearchContext);
-  const [query, setQuery] = useContext(SearchContext);
+  const { search, query } = useContext(SearchContext);
+  const [stateSearch, setStateSearch] = search;
+  const [stateQuery, setStateQuery] = query;
+
   const updateSearch = (e) => {
-    setSearch(e.target.value);
-    console.log(search);
+    setStateSearch(e.target.value);
+    console.log(stateSearch);
   };
 
   const getSearch = (e) => {
     e.preventDefault();
-    setQuery(search);
+    setStateQuery(stateSearch);
   };
 
   return (
@@ -52,25 +46,27 @@ const SearchBar = () => {
       <Input
         placeholder="Search..."
         type="search"
-        value={search}
+        value={stateSearch}
         onChange={updateSearch}
       ></Input>
-      <IconContext.Provider
-        value={
-          {
-            color: "#06B49A", //how to use theme.color here?
-            size: "2rem",
+      <Button type="submit">
+        <IconContext.Provider
+          value={
+            {
+              color: "#06B49A", //how to use theme.color here?
+              size: "2rem",
+            }
+            // (props) => ({
+            //   color: props.theme.color.primary,
+            //   size: "2rem",
+            // })
           }
-          // (props) => ({
-          //   color: props.theme.color.primary,
-          //   size: "2rem",
-          // })
-        }
-      >
-        <div>
-          <FaSearch />
-        </div>
-      </IconContext.Provider>
+        >
+          <div>
+            <FaSearch />
+          </div>
+        </IconContext.Provider>
+      </Button>
     </Form>
   );
 };

@@ -10,7 +10,6 @@ const StyledButton = styled(Button)`
   height: 4rem;
   border-radius: 2rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  cursor: pointer;
   ${(props) =>
     props.right &&
     css`
@@ -21,10 +20,6 @@ const StyledButton = styled(Button)`
     css`
       left: 10px;
     `};
-  &:focus,
-  &:active {
-    outline: none;
-  }
 
   @media ${MinWidthBreakpoints.xLarge} {
     ${(props) =>
