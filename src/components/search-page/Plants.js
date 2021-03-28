@@ -13,7 +13,7 @@ const Plants = () => {
   const [page, setPage] = useState(1);
   const { promiseInProgress } = usePromiseTracker();
   const [search, setSearch] = useContext(SearchContext);
-  //   const [specie, setSpecie] = useState({});
+
   const getPlants = async () => {
     try {
       const JWTResponse = await axios.get(
@@ -33,7 +33,6 @@ const Plants = () => {
         },
       });
       setPlants(plantsResponse.data.data);
-      console.log(plants);
     } catch (error) {
       console.log(error);
     }

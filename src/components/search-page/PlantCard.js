@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Wrapper, Paragraph, Image, Heading } from "../../theme/globalStyle";
 import backgroundImg from "../../images/card-background.svg";
+import { Link } from "react-router-dom";
 
 const StyledWrapper = styled(Wrapper)`
   position: relative;
@@ -15,11 +16,14 @@ const StyledWrapper = styled(Wrapper)`
   background-repeat: no-repeat;
 `;
 
-const StyledHeading = styled(Heading)`
+const StyledLink = styled(Link)`
   color: white;
   position: absolute;
   right: 20px;
   bottom: 20px;
+  font-size: ${(props) => props.theme.fontSize.medium};
+  font-weight: bolder;
+  text-decoration: none;
 `;
 
 const StyledImage = styled(Image)`
@@ -49,10 +53,7 @@ const PlantCard = ({ name, image, family, genus, link }) => {
         </Heading>
         <Paragraph margin="0 0 8px 0">Family: {family}</Paragraph>
         <Paragraph margin="0 0 8px 0">Genus: {genus}</Paragraph>
-        <StyledHeading h4>
-          Learn More
-          {/* <a href={link}>Learn More</a> */}
-        </StyledHeading>
+        <StyledLink to={`/plant/${name}`}>Learn More</StyledLink>
       </Wrapper>
     </StyledWrapper>
   );
