@@ -34,6 +34,7 @@ const StyledImage = styled(Image)`
 `;
 
 const PlantCard = ({ name, image, family, genus, link }) => {
+  link = link.split("/")[4];
   return (
     <StyledWrapper
       margin="40px 20px"
@@ -53,7 +54,7 @@ const PlantCard = ({ name, image, family, genus, link }) => {
         </Heading>
         <Paragraph margin="0 0 8px 0">Family: {family}</Paragraph>
         <Paragraph margin="0 0 8px 0">Genus: {genus}</Paragraph>
-        <StyledLink to={`/plant/${name}`}>Learn More</StyledLink>
+        <StyledLink to={`/plant/${link}`}>Learn More</StyledLink>
       </Wrapper>
     </StyledWrapper>
   );
