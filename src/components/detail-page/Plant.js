@@ -1,10 +1,16 @@
 import React, { useState, useEffect, Fragment } from "react";
 import axios from "axios";
+import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { trackPromise } from "react-promise-tracker";
 import { usePromiseTracker } from "react-promise-tracker";
 import { Wrapper, Image } from "../../theme/globalStyle";
 import LoadingSpinner from "../../images/Spinner-2s-200px.svg";
+import TextCard from "../detail-page/TextCard";
+
+const StyledWrapper = styled(Wrapper)`
+  max-width: 880px;
+`;
 
 const Plant = () => {
   let images;
@@ -25,6 +31,8 @@ const Plant = () => {
         },
       });
       setPlant(plantResponse.data.data.main_species);
+      //   console.log(Array.isArray(plantResponse.data.data.main_species));
+      //   console.log(Array.isArray(plant));
       images = plantResponse.data.data.main_species.images;
       getImages();
     } catch (error) {
@@ -39,7 +47,7 @@ const Plant = () => {
   const getImages = () => {
     for (let key in images) {
       images[key].forEach((element) => {
-        setImagesArray((imagesArray) => [...imagesArray, element.image_url]);
+        setImagesArray([...imagesArray, element.image_url]);
       });
     }
     // console.log(imagesArray);
@@ -52,11 +60,37 @@ const Plant = () => {
           <Image width="100" height="100" src={LoadingSpinner}></Image>
         ) : null}
       </Wrapper>
-      <Wrapper>
-        {imagesArray.map((value, index) => (
+      <StyledWrapper margin="20px auto">
+        <TextCard plantField={plant.common_name} title="Common Name"></TextCard>
+        <TextCard plantField={plant.slug} title="Slug"></TextCard>
+        <TextCard
+          plantField={plant.scientific_name}
+          title="Scientific Name"
+        ></TextCard>
+        <TextCard plantField={plant.genus} title="Genus"></TextCard>
+        <TextCard plantField={plant.family} title="Family"></TextCard>
+        <TextCard
+          plantField={plant.observations}
+          title="Observations"
+        ></TextCard>
+        <TextCard
+          plantField={plant.vegetable ? "true" : "false"}
+          title="Vegetable"
+        ></TextCard>
+        <TextCard
+          plantField={
+            plant.edible
+              ? plant.edible_part === null
+                ? "true"
+                : plant.edible_part.join(", ")
+              : "false"
+          }
+          title="Edible"
+        ></TextCard>
+        {/* {imagesArray.map((value, index) => (
           <Image key={index} width="300" height="300" src={value}></Image>
-        ))}
-      </Wrapper>
+        ))} */}
+      </StyledWrapper>
     </Fragment>
   );
 };

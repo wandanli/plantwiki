@@ -7,7 +7,7 @@ const theme = {
     greyLight: "#f5f5f5",
     greyDark: "#c2c2c2",
     black: "#4c4c4c",
-    white: "fff",
+    white: "#ffff",
   },
   fontFamily: {
     heading: "Heebo, sans-serif",
