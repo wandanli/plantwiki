@@ -21,6 +21,11 @@ const StyledButton = styled(Button)`
   border-radius: 30px;
   color: ${(props) => props.theme.color.white};
   font-size: ${(props) => props.theme.fontSize.large};
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: ${(props) => props.theme.color.secondary};
+  }
 `;
 
 const ImagePart = ({ images }) => {
@@ -60,11 +65,11 @@ const ImagePart = ({ images }) => {
   };
 
   const handleDisplayClick = (key) => {
-    toggles.forEach((value, toogleKey) => {
-      if (toogleKey === key) {
-        toggles.set(toogleKey, !value);
+    toggles.forEach((value, toggleKey) => {
+      if (toggleKey === key) {
+        toggles.set(toggleKey, !value);
       } else {
-        toggles.set(toogleKey, false);
+        toggles.set(toggleKey, false);
       }
     });
     const newToggles = new Map(toggles);

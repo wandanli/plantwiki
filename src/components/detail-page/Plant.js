@@ -1,10 +1,10 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { trackPromise } from "react-promise-tracker";
 import { usePromiseTracker } from "react-promise-tracker";
-import { Wrapper, Image } from "../../theme/globalStyle";
+import { Wrapper, Image, Container } from "../../theme/globalStyle";
 import LoadingSpinner from "../../images/Spinner-2s-200px.svg";
 import TextCard from "./TextCard";
 import ImagePart from "./ImagePart";
@@ -42,7 +42,7 @@ const Plant = () => {
   }, []);
 
   return (
-    <Fragment>
+    <Container>
       <Wrapper>
         {promiseInProgress === true ? (
           <Image width="100" height="100" src={LoadingSpinner}></Image>
@@ -79,7 +79,7 @@ const Plant = () => {
       <Wrapper>
         <ImagePart images={images} />
       </Wrapper>
-    </Fragment>
+    </Container>
   );
 };
 
