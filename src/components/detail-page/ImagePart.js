@@ -57,24 +57,14 @@ const ImagePart = ({ images }) => {
           Images
         </Heading>
         <Wrapper>
-          {Object.entries(images).map(([key, value]) => {
+          {/* {Object.entries(images).map(([key, value]) => {
             if (key === "") {
-              return (
-                <Wrapper flexDirection="column">
-                  <StyledWrapper>
-                    {value.map((el) => (
-                      <StyledImage
-                        key={el.id}
-                        src={el.image_url}
-                        width="300"
-                        height="300"
-                      ></StyledImage>
-                    ))}
-                  </StyledWrapper>
-                </Wrapper>
-              );
+              return <DisplayImages value={value} />;
             }
             return null;
+          })} */}
+          {Object.entries(images).map(([key, value]) => {
+            return key === "" ? <DisplayImages value={value} /> : null;
           })}
         </Wrapper>
         <Wrapper>
