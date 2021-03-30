@@ -5,7 +5,7 @@ import { VscTriangleDown } from "react-icons/vsc";
 
 const StyledWrapper = styled(Wrapper)`
   flex: 0 0 180px;
-  height: 160px;
+  height: 120px;
   border: 1px solid ${(props) => props.theme.color.primary};
   border-radius: 8px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
@@ -14,8 +14,8 @@ const StyledWrapper = styled(Wrapper)`
 
 const StyledHeading = styled(Heading)`
   width: 100%;
-  height: 70px;
-  padding: 20px;
+  height: 48px;
+  padding: 14px;
   background-color: ${(props) => props.theme.color.primary};
   border: 1px solid ${(props) => props.theme.color.primary};
   border-radius: 6px 6px 0 0;

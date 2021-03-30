@@ -48,12 +48,12 @@ export const Heading = styled.h1`
   ${(props) =>
     props.primary &&
     css`
-      color: ${(props) => props.theme.color.primary}; ;
+      color: ${(props) => props.theme.color.primary};
     `};
   ${(props) =>
     props.secondary &&
     css`
-      color: ${(props) => props.theme.color.secondary}; ;
+      color: ${(props) => props.theme.color.secondary};
     `};
   ${(props) =>
     props.h1 &&

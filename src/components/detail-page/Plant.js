@@ -6,15 +6,15 @@ import { trackPromise } from "react-promise-tracker";
 import { usePromiseTracker } from "react-promise-tracker";
 import { Wrapper, Image } from "../../theme/globalStyle";
 import LoadingSpinner from "../../images/Spinner-2s-200px.svg";
-import TextCard from "../detail-page/TextCard";
+import TextCard from "./TextCard";
+import ImagePart from "./ImagePart";
 
 const StyledWrapper = styled(Wrapper)`
   max-width: 880px;
 `;
 
 const Plant = () => {
-  let images;
-  const [imagesArray, setImagesArray] = useState([]);
+  const [images, setImages] = useState({});
   const [plant, setPlant] = useState({});
   const { name } = useParams();
   const { promiseInProgress } = usePromiseTracker();
@@ -31,10 +31,7 @@ const Plant = () => {
         },
       });
       setPlant(plantResponse.data.data.main_species);
-      //   console.log(Array.isArray(plantResponse.data.data.main_species));
-      //   console.log(Array.isArray(plant));
-      images = plantResponse.data.data.main_species.images;
-      getImages();
+      setImages(plantResponse.data.data.main_species.images);
     } catch (error) {
       console.log(error);
     }
@@ -43,15 +40,6 @@ const Plant = () => {
   useEffect(() => {
     trackPromise(getPlant());
   }, []);
-
-  const getImages = () => {
-    for (let key in images) {
-      images[key].forEach((element) => {
-        setImagesArray([...imagesArray, element.image_url]);
-      });
-    }
-    // console.log(imagesArray);
-  };
 
   return (
     <Fragment>
@@ -87,10 +75,10 @@ const Plant = () => {
           }
           title="Edible"
         ></TextCard>
-        {/* {imagesArray.map((value, index) => (
-          <Image key={index} width="300" height="300" src={value}></Image>
-        ))} */}
       </StyledWrapper>
+      <Wrapper>
+        <ImagePart images={images} />
+      </Wrapper>
     </Fragment>
   );
 };
