@@ -95,15 +95,9 @@ const ImagePart = ({ images }) => {
           )}
         </Wrapper>
         <Wrapper>
-          {Object.entries(images).map(([key, value]) => {
-            const ret =
-              toggles.get(key) === true ? (
-                <DisplayImages value={value} />
-              ) : null;
-            console.log(`=== ${key}: ${toggles.get(key)}, ret ${ret}`);
-            return ret;
-            // return <DisplayImages value={value} />;
-          })}
+          {Object.entries(images).map(([key, value]) =>
+            toggles.get(key) === true ? <DisplayImages value={value} /> : null
+          )}
         </Wrapper>
       </Wrapper>
     </Wrapper>
