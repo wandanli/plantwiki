@@ -11,8 +11,10 @@ import { SearchContext } from "./SearchPage";
 const Plants = () => {
   const [plants, setPlants] = useState([]);
   const [page, setPage] = useState(1);
+  const [lastPage, setLastPage] = useState();
   const { promiseInProgress } = usePromiseTracker();
   const [search, setSearch] = useContext(SearchContext);
+  // let lastPage, lastPageLink;
 
   const getPlants = async () => {
     try {
@@ -33,6 +35,21 @@ const Plants = () => {
         },
       });
       setPlants(plantsResponse.data.data);
+      const lastPageLink = plantsResponse.data.links.last;
+      setLastPage(
+        parseInt(
+          lastPageLink.slice(
+            lastPageLink.indexOf("=") + 1,
+            lastPageLink.indexOf("&")
+          ),
+          10
+        )
+      );
+      console.log(
+        lastPage,
+        lastPageLink.indexOf("="),
+        lastPageLink.indexOf("&")
+      );
     } catch (error) {
       console.log(error);
     }
@@ -47,6 +64,9 @@ const Plants = () => {
   }, [search]);
 
   const handleClick = (arrow) => {
+    if (arrow === "right" && page === lastPage) {
+      alert("It's already the last page.");
+    }
     if (arrow === "right") {
       setPage(page + 1);
     }
