@@ -4,13 +4,14 @@ const express = require("express");
 const app = express();
 
 app.get("/", async (request, response) => {
+  const originUrl = request.headers.origin;
   const params = {
-    origin: "http://localhost:3000",
+    origin: originUrl,
     token: process.env.SECRET,
   };
 
   const tokenResponse = await fetch("https://trefle.io/api/auth/claim", {
-    method: "post",
+    method: "POST",
     body: JSON.stringify(params),
     headers: { "Content-Type": "application/json" },
   });
