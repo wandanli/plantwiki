@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Fragment } from "react";
 import styled from "styled-components";
 import { Heading, Image, Wrapper, Button } from "../../theme/globalStyle";
+import fallbackImg from "../../images/fallbackImg.png";
 
 const StyledHeading = styled(Heading)`
   color: ${(props) => props.theme.color.secondary};
@@ -56,6 +57,10 @@ const ImagePart = ({ images }) => {
               src={el.image_url}
               width="300"
               height="300"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = fallbackImg;
+              }}
             ></StyledImage>
           ))}
         </Wrapper>

@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Wrapper, Paragraph, Image, Heading } from "../../theme/globalStyle";
 import backgroundImg from "../../images/card-background.svg";
+import fallbackImg from "../../images/fallbackImg.png";
 import { Link } from "react-router-dom";
 
 const StyledWrapper = styled(Wrapper)`
@@ -47,6 +48,10 @@ const PlantCard = ({ name, image, family, genus, link }) => {
         height="300"
         alt={name}
         src={image}
+        onError={(e) => {
+          e.target.onerror = null;
+          e.target.src = fallbackImg;
+        }}
       ></StyledImage>
       <Wrapper margin="20px 20px" flexDirection="column" flexAI="flex-start">
         <Heading h4 margin="0 0 16px 0">
