@@ -2,6 +2,10 @@ import React, { useState, useEffect, Fragment } from "react";
 import styled from "styled-components";
 import { Heading, Image, Wrapper, Button } from "../../theme/globalStyle";
 
+const StyledHeading = styled(Heading)`
+  color: ${(props) => props.theme.color.secondary};
+`;
+
 const StyledImage = styled(Image)`
   margin: 20px;
   border-radius: 8px;
@@ -74,9 +78,9 @@ const ImagePart = ({ images }) => {
   return (
     <Wrapper>
       <Wrapper flexDirection="column">
-        <Heading h2 margin="20px">
+        <StyledHeading h1 margin="40px">
           Images
-        </Heading>
+        </StyledHeading>
         <Wrapper>
           {Object.entries(images).map(([key, value]) => {
             return key === "" ? <DisplayImages value={value} /> : null;

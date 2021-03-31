@@ -13,14 +13,16 @@ import {
 import LoadingSpinner from "../../images/Spinner-2s-200px.svg";
 import TextCard from "./TextCard";
 import ImagePart from "./ImagePart";
+import Specifications from "./Specifications";
 
 const StyledWrapper = styled(Wrapper)`
   max-width: 880px;
 `;
 
 const Plant = () => {
-  const [images, setImages] = useState({});
   const [plant, setPlant] = useState({});
+  const [images, setImages] = useState({});
+  const [specs, setSpecs] = useState({});
   const { name } = useParams();
   const { promiseInProgress } = usePromiseTracker();
   const getPlant = async () => {
@@ -37,6 +39,7 @@ const Plant = () => {
       });
       setPlant(plantResponse.data.data.main_species);
       setImages(plantResponse.data.data.main_species.images);
+      setSpecs(plantResponse.data.data.main_species.specifications);
     } catch (error) {
       console.log(error);
     }
@@ -83,9 +86,8 @@ const Plant = () => {
           title="Edible"
         ></TextCard>
       </StyledWrapper>
-      <Wrapper>
-        <ImagePart images={images} />
-      </Wrapper>
+      <ImagePart images={images} />
+      <Specifications specs={specs} />
     </Container>
   );
 };
