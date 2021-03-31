@@ -24,6 +24,7 @@ body {
 `;
 
 export const Container = styled.div`
+  display: ${(props) => (props.hide ? "none" : "")};
   width: 100%;
   max-width: calc(1100px + 24px + 24px);
   min-width: 280px;
@@ -32,7 +33,7 @@ export const Container = styled.div`
 `;
 
 export const Wrapper = styled.div`
-  display: flex;
+  display: ${(props) => (props.hide ? "none" : "flex")};
   flex-direction: ${(props) => props.flexDirection || "row"};
   flex-wrap: ${(props) => props.flexWrap || "wrap"};
   justify-content: ${(props) => props.flexJC || "center"};

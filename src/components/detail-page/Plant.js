@@ -71,14 +71,14 @@ const Plant = () => {
 
   return (
     <Fragment>
-      <Container>
-        <Wrapper>
-          {promiseInProgress === true ? (
-            <FullScreenWrapper>
-              <Image width="100" height="100" src={LoadingSpinner}></Image>
-            </FullScreenWrapper>
-          ) : null}
-        </Wrapper>
+      <Wrapper>
+        {promiseInProgress === true ? (
+          <FullScreenWrapper>
+            <Image width="100" height="100" src={LoadingSpinner}></Image>
+          </FullScreenWrapper>
+        ) : null}
+      </Wrapper>
+      <Container hide={promiseInProgress}>
         <StyledWrapper margin="20px auto">
           <TextCard
             plantField={plant.common_name}

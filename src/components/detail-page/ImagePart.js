@@ -76,34 +76,32 @@ const ImagePart = ({ images }) => {
   };
 
   return (
-    <Wrapper>
-      <Wrapper flexDirection="column">
-        <StyledHeading h1 margin="40px">
-          Images
-        </StyledHeading>
-        <Wrapper>
-          {Object.entries(images).map(([key, value]) => {
-            return key === "" ? <DisplayImages value={value} /> : null;
-          })}
-        </Wrapper>
-        <Wrapper>
-          {imagesKey.map((key, index) =>
-            key === "" ? null : (
-              <StyledButton
-                onClick={(e) => handleDisplayClick(key)}
-                key={index}
-                selected={toggles.get(key)}
-              >
-                {key}
-              </StyledButton>
-            )
-          )}
-        </Wrapper>
-        <Wrapper>
-          {Object.entries(images).map(([key, value]) =>
-            toggles.get(key) === true ? <DisplayImages value={value} /> : null
-          )}
-        </Wrapper>
+    <Wrapper flexDirection="column">
+      <StyledHeading h1 margin="40px">
+        Images
+      </StyledHeading>
+      <Wrapper>
+        {Object.entries(images).map(([key, value]) => {
+          return key === "" ? <DisplayImages value={value} /> : null;
+        })}
+      </Wrapper>
+      <Wrapper>
+        {imagesKey.map((key, index) =>
+          key === "" ? null : (
+            <StyledButton
+              onClick={(e) => handleDisplayClick(key)}
+              key={index}
+              selected={toggles.get(key)}
+            >
+              {key}
+            </StyledButton>
+          )
+        )}
+      </Wrapper>
+      <Wrapper>
+        {Object.entries(images).map(([key, value]) =>
+          toggles.get(key) === true ? <DisplayImages value={value} /> : null
+        )}
       </Wrapper>
     </Wrapper>
   );
