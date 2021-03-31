@@ -35,16 +35,22 @@ const Specifications = ({ specs }) => {
       </StyledHeading>
       <Wrapper>
         {Object.entries(specs).map(([key, value]) => {
-          if (key !== "average_height" && key !== "maximum_height") {
-            return (
-              <StyledParagraph>
-                <StyledKey>{key.split("_").join(" ")}: </StyledKey>
-                <StyledValue>{value === null ? "Null" : value}</StyledValue>
-              </StyledParagraph>
-            );
+          let myValue = "";
+          if (key === "average_height" || key === "maximum_height") {
+            myValue = key.cm;
           } else {
-            return null;
+            myValue = value;
           }
+          if (typeof myValue === "undefined" || myValue === null) {
+            myValue = "Null";
+          }
+
+          return (
+            <StyledParagraph>
+              <StyledKey>{key.split("_").join(" ")}: </StyledKey>
+              <StyledValue>{myValue}</StyledValue>
+            </StyledParagraph>
+          );
         })}
       </Wrapper>
     </Wrapper>
