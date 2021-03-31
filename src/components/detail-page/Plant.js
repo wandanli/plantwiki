@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
@@ -15,9 +15,26 @@ import TextCard from "./TextCard";
 import ImagePart from "./ImagePart";
 import Specifications from "./Specifications";
 import Growth from "./Growth";
+import { TiArrowBack } from "react-icons/ti";
+import { Link } from "react-router-dom";
 
 const StyledWrapper = styled(Wrapper)`
   max-width: 880px;
+`;
+
+const StyledLink = styled(Link)`
+  position: fixed;
+  bottom: 10px;
+  right: 40px;
+  width: 60px;
+  height: 60px;
+  padding-top: 8px;
+  background-color: ${(props) => props.theme.color.secondary};
+  border-radius: 30px;
+  text-align: center;
+  font-size: 4rem;
+  color: ${(props) => props.theme.color.white};
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
 `;
 
 const Plant = () => {
@@ -53,46 +70,55 @@ const Plant = () => {
   }, []);
 
   return (
-    <Container>
-      <Wrapper>
-        {promiseInProgress === true ? (
-          <FullScreenWrapper>
-            <Image width="100" height="100" src={LoadingSpinner}></Image>
-          </FullScreenWrapper>
-        ) : null}
-      </Wrapper>
-      <StyledWrapper margin="20px auto">
-        <TextCard plantField={plant.common_name} title="Common Name"></TextCard>
-        <TextCard plantField={plant.slug} title="Slug"></TextCard>
-        <TextCard
-          plantField={plant.scientific_name}
-          title="Scientific Name"
-        ></TextCard>
-        <TextCard plantField={plant.genus} title="Genus"></TextCard>
-        <TextCard plantField={plant.family} title="Family"></TextCard>
-        <TextCard
-          plantField={plant.observations}
-          title="Observations"
-        ></TextCard>
-        <TextCard
-          plantField={plant.vegetable ? "true" : "false"}
-          title="Vegetable"
-        ></TextCard>
-        <TextCard
-          plantField={
-            plant.edible
-              ? plant.edible_part === null
-                ? "true"
-                : plant.edible_part.join(", ")
-              : "false"
-          }
-          title="Edible"
-        ></TextCard>
-      </StyledWrapper>
-      <ImagePart images={images} />
-      <Specifications specs={specs} />
-      <Growth growth={ growth}/>
-    </Container>
+    <Fragment>
+      <Container>
+        <Wrapper>
+          {promiseInProgress === true ? (
+            <FullScreenWrapper>
+              <Image width="100" height="100" src={LoadingSpinner}></Image>
+            </FullScreenWrapper>
+          ) : null}
+        </Wrapper>
+        <StyledWrapper margin="20px auto">
+          <TextCard
+            plantField={plant.common_name}
+            title="Common Name"
+          ></TextCard>
+          <TextCard plantField={plant.slug} title="Slug"></TextCard>
+          <TextCard
+            plantField={plant.scientific_name}
+            title="Scientific Name"
+          ></TextCard>
+          <TextCard plantField={plant.genus} title="Genus"></TextCard>
+          <TextCard plantField={plant.family} title="Family"></TextCard>
+          <TextCard
+            plantField={plant.observations}
+            title="Observations"
+          ></TextCard>
+          <TextCard
+            plantField={plant.vegetable ? "true" : "false"}
+            title="Vegetable"
+          ></TextCard>
+          <TextCard
+            plantField={
+              plant.edible
+                ? plant.edible_part === null
+                  ? "true"
+                  : plant.edible_part.join(", ")
+                : "false"
+            }
+            title="Edible"
+          ></TextCard>
+        </StyledWrapper>
+        <ImagePart images={images} />
+        <Specifications specs={specs} />
+        <Growth growth={growth} />
+      </Container>
+
+      <StyledLink to={`/`}>
+        <TiArrowBack />
+      </StyledLink>
+    </Fragment>
   );
 };
 
