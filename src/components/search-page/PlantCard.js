@@ -1,6 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import { Wrapper, Paragraph, Image, Heading } from "../../theme/globalStyle";
+import {
+  Wrapper,
+  Paragraph,
+  Image,
+  Heading,
+  MaxWidthBreakpoints,
+} from "../../theme/globalStyle";
 import backgroundImg from "../../images/card-background.svg";
 import fallbackImg from "../../images/fallbackImg.png";
 import { Link } from "react-router-dom";
@@ -15,6 +21,9 @@ const StyledWrapper = styled(Wrapper)`
   background-image: url("${backgroundImg}");
   background-position: bottom;
   background-repeat: no-repeat;
+  @media ${MaxWidthBreakpoints.small} {
+    height: 420px;
+  } ;
 `;
 
 const StyledLink = styled(Link)`
