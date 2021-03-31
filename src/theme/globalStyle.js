@@ -127,6 +127,23 @@ export const Button = styled.button`
   }
 `;
 
+export const StyledKey = styled(Paragraph)`
+  padding: 10px;
+  background-color: ${(props) => props.theme.color.greyLight};
+  border: 1px solid ${(props) => props.theme.color.greyDark};
+  border-radius: 8px 0 0 8px;
+  font-size: ${(props) => props.theme.fontSize.large};
+  font-weight: ${(props) => props.theme.fontWeight.bold};
+  text-transform: capitalize;
+`;
+
+export const StyledValue = styled(StyledKey)`
+  background-color: ${(props) => props.theme.color.greyDark};
+  border-radius: 0 8px 8px 0;
+  color: ${(props) => props.theme.color.white};
+  text-transform: lowercase;
+`;
+
 export const MinWidthBreakpoints = {
   small: `(min-width: 480px)`,
   medium: `(min-width: 768px)`,

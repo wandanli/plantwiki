@@ -17,28 +17,23 @@ const StyledParagraph = styled(Paragraph)`
   margin: 20px;
 `;
 
-const Specifications = ({ specs }) => {
+const Growth = ({ growth }) => {
   return (
     <Wrapper margin="40px 0" flexDirection="column">
       <StyledHeading h1 margin="20px">
-        Specifications
+        Growth
       </StyledHeading>
       <Wrapper>
-        {Object.entries(specs).map(([key, value]) => {
-          let myValue = "";
-          if (key === "average_height" || key === "maximum_height") {
-            myValue = key.cm;
-          } else {
-            myValue = value;
-          }
-          if (typeof myValue === "undefined" || myValue === null) {
-            myValue = "null";
-          }
-
+        {Object.entries(growth).map(([key, value]) => {
+          const regex = /[\{\}\[\]\"\"]/g;
+          let growthValue = JSON.stringify(value)
+            .replace(regex, "")
+            .replace(/,/g, ", ")
+            .replace(/:/g, ": ");
           return (
             <StyledParagraph>
               <StyledKey>{key.split("_").join(" ")}: </StyledKey>
-              <StyledValue>{myValue}</StyledValue>
+              <StyledValue>{growthValue}</StyledValue>
             </StyledParagraph>
           );
         })}
@@ -47,4 +42,4 @@ const Specifications = ({ specs }) => {
   );
 };
 
-export default Specifications;
+export default Growth;
