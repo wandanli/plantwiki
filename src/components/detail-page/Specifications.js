@@ -6,6 +6,7 @@ import {
   Wrapper,
   StyledKey,
   StyledValue,
+  Emoji,
 } from "../../theme/globalStyle";
 
 const StyledHeading = styled(Heading)`
@@ -21,7 +22,8 @@ const Specifications = ({ specs }) => {
   return (
     <Wrapper margin="40px 0" flexDirection="column">
       <StyledHeading h1 margin="20px">
-        Specifications
+        <Emoji aria-label="Sparkles"> ✨ </Emoji> Specifications{" "}
+        <Emoji aria-label="Sparkles"> ✨ </Emoji>
       </StyledHeading>
       <Wrapper>
         {Object.entries(specs).map(([key, value]) => {

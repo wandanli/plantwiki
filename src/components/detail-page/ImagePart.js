@@ -1,6 +1,12 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Heading, Image, Wrapper, Button } from "../../theme/globalStyle";
+import {
+  Heading,
+  Image,
+  Wrapper,
+  Button,
+  Emoji,
+} from "../../theme/globalStyle";
 import fallbackImg from "../../images/fallbackImg.png";
 
 const StyledHeading = styled(Heading)`
@@ -83,7 +89,8 @@ const ImagePart = ({ images }) => {
   return (
     <Wrapper flexDirection="column">
       <StyledHeading h1 margin="40px">
-        Images
+        <Emoji aria-label="Sparkles"> ✨ </Emoji> Images{" "}
+        <Emoji aria-label="Sparkles"> ✨ </Emoji>
       </StyledHeading>
       <Wrapper>
         {Object.entries(images).map(([key, value]) => {
