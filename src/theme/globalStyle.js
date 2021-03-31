@@ -66,6 +66,9 @@ export const Heading = styled.h1`
     props.h1 &&
     css`
       font-size: 3.2rem;
+      @media ${MaxWidthBreakpoints.small} {
+        font-size: 2.4rem;
+      } ;
     `};
   ${(props) =>
     props.h2 &&
