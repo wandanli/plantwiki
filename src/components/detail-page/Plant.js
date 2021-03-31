@@ -6,9 +6,10 @@ import { trackPromise } from "react-promise-tracker";
 import { usePromiseTracker } from "react-promise-tracker";
 import {
   Wrapper,
-  Image,
+  SpinnerImage,
   Container,
   FullScreenWrapper,
+  MaxWidthBreakpoints,
 } from "../../theme/globalStyle";
 import LoadingSpinner from "../../images/Spinner-2s-200px.svg";
 import TextCard from "./TextCard";
@@ -35,6 +36,13 @@ const StyledLink = styled(Link)`
   font-size: 4rem;
   color: ${(props) => props.theme.color.white};
   box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+  @media ${MaxWidthBreakpoints.small} {
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    padding-top: 4px;
+    font-size: 3rem;
+  } ;
 `;
 
 const Plant = () => {
@@ -74,7 +82,11 @@ const Plant = () => {
       <Wrapper>
         {promiseInProgress === true ? (
           <FullScreenWrapper>
-            <Image width="100" height="100" src={LoadingSpinner}></Image>
+            <SpinnerImage
+              width="100"
+              height="100"
+              src={LoadingSpinner}
+            ></SpinnerImage>
           </FullScreenWrapper>
         ) : null}
       </Wrapper>

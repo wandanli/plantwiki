@@ -3,7 +3,7 @@ import axios from "axios";
 import { trackPromise } from "react-promise-tracker";
 import { usePromiseTracker } from "react-promise-tracker";
 import PlantCard from "./PlantCard";
-import { Wrapper, Image } from "../../theme/globalStyle";
+import { Wrapper, SpinnerImage } from "../../theme/globalStyle";
 import PageButton from "./PageButton";
 import LoadingSpinner from "../../images/Spinner-2s-200px.svg";
 import { SearchContext } from "./SearchPage";
@@ -82,7 +82,11 @@ const Plants = () => {
     <Fragment>
       <Wrapper>
         {promiseInProgress === true ? (
-          <Image width="100" height="100" src={LoadingSpinner}></Image>
+          <SpinnerImage
+            width="100"
+            height="100"
+            src={LoadingSpinner}
+          ></SpinnerImage>
         ) : null}
       </Wrapper>
       <Wrapper margin="40px 10px 20px 10px">
