@@ -24,7 +24,7 @@ const SearchPage = () => {
   return (
     <Container>
       <Wrapper margin="40px 0 20px 0">
-        <Heading h1>
+        <Heading h2>
           <Emoji aria-label="seek"> 🧐 </Emoji> Search for a plant{" "}
           <Emoji aria-label="leaf"> 🌿 </Emoji>
         </Heading>

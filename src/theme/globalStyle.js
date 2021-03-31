@@ -114,11 +114,6 @@ export const Paragraph = styled.p`
     `};
 `;
 
-export const Image = styled.img`
-  object-fit: cover;
-  object-position: center center;
-`;
-
 export const Button = styled.button`
   background: none;
   cursor: pointer;
@@ -158,5 +153,14 @@ export const MaxWidthBreakpoints = {
   large: `(max-width: 1139px)`,
   xLarge: `(max-width: 1499px)`,
 };
+
+export const Image = styled.img`
+  object-fit: cover;
+  object-position: center center;
+  @media ${MaxWidthBreakpoints.small} {
+    width: 240px;
+    height: 240px;
+  } ;
+`;
 
 export default GlobalStyle;

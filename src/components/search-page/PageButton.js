@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
-import { Button, Wrapper, MinWidthBreakpoints } from "../../theme/globalStyle";
+import {
+  Button,
+  Wrapper,
+  MinWidthBreakpoints,
+  MaxWidthBreakpoints,
+} from "../../theme/globalStyle";
 import { FaArrowCircleRight, FaArrowCircleLeft } from "react-icons/fa";
 
 const StyledButton = styled(Button)`
   position: fixed;
-  top: 50vh;
+  bottom: 50vh;
   width: 4rem;
   height: 4rem;
   border-radius: 2rem;
@@ -32,6 +37,10 @@ const StyledButton = styled(Button)`
       css`
         left: calc((100% - 1100px) / 2 - 40px);
       `};
+  }
+  @media ${MaxWidthBreakpoints.small} {
+    bottom: 20px;
+    background-color: ${(props) => props.theme.color.white};
   } ;
 `;
 
