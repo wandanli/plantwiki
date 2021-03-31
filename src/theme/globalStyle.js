@@ -40,6 +40,12 @@ export const Wrapper = styled.div`
   margin: ${(props) => props.margin || ""};
 `;
 
+export const FullScreenWrapper = styled(Wrapper)`
+  width: 100vw;
+  height: 100vh;
+  z-index: 999;
+`;
+
 export const Heading = styled.h1`
   margin: ${(props) => props.margin || ""};
   text-transform: capitalize;

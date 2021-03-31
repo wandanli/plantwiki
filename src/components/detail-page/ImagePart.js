@@ -8,22 +8,17 @@ const StyledImage = styled(Image)`
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 `;
 
-const StyledWrapper = styled(Wrapper)`
-  /* display: ${(props) => (props.className === "" ? "block" : "none")}; */
-`;
-
 const StyledButton = styled(Button)`
   margin: 10px;
   padding: 10px;
   width: 100px;
   height: 40px;
-  background-color: ${(props) => props.theme.color.primary};
+  background-color: ${(props) => (props.selected ? "#FF9000" : "#06B49A")};
   border-radius: 30px;
   color: ${(props) => props.theme.color.white};
   font-size: ${(props) => props.theme.fontSize.large};
   &:hover,
-  &:active,
-  &:focus {
+  &:active {
     background-color: ${(props) => props.theme.color.secondary};
   }
 `;
@@ -50,7 +45,7 @@ const ImagePart = ({ images }) => {
   const DisplayImages = ({ value }) => {
     return (
       <Wrapper flexDirection="column">
-        <StyledWrapper>
+        <Wrapper>
           {value.map((el) => (
             <StyledImage
               key={el.id}
@@ -59,7 +54,7 @@ const ImagePart = ({ images }) => {
               height="300"
             ></StyledImage>
           ))}
-        </StyledWrapper>
+        </Wrapper>
       </Wrapper>
     );
   };
@@ -93,6 +88,7 @@ const ImagePart = ({ images }) => {
               <StyledButton
                 onClick={(e) => handleDisplayClick(key)}
                 key={index}
+                selected={toggles.get(key)}
               >
                 {key}
               </StyledButton>

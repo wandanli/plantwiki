@@ -4,7 +4,12 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { trackPromise } from "react-promise-tracker";
 import { usePromiseTracker } from "react-promise-tracker";
-import { Wrapper, Image, Container } from "../../theme/globalStyle";
+import {
+  Wrapper,
+  Image,
+  Container,
+  FullScreenWrapper,
+} from "../../theme/globalStyle";
 import LoadingSpinner from "../../images/Spinner-2s-200px.svg";
 import TextCard from "./TextCard";
 import ImagePart from "./ImagePart";
@@ -45,7 +50,9 @@ const Plant = () => {
     <Container>
       <Wrapper>
         {promiseInProgress === true ? (
-          <Image width="100" height="100" src={LoadingSpinner}></Image>
+          <FullScreenWrapper>
+            <Image width="100" height="100" src={LoadingSpinner}></Image>
+          </FullScreenWrapper>
         ) : null}
       </Wrapper>
       <StyledWrapper margin="20px auto">
