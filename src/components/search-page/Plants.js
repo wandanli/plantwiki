@@ -1,4 +1,10 @@
-import React, { useState, useEffect, Fragment, useContext } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  Fragment,
+  useContext,
+} from "react";
 import axios from "axios";
 import { trackPromise } from "react-promise-tracker";
 import { usePromiseTracker } from "react-promise-tracker";
@@ -7,17 +13,49 @@ import { Wrapper, SpinnerImage } from "../../theme/globalStyle";
 import PageButton from "./PageButton";
 import LoadingSpinner from "../../images/Spinner-2s-200px.svg";
 import { SearchContext } from "./SearchPage";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const Plants = () => {
   const [plants, setPlants] = useState([]);
-  const [page, setPage] = useState(1);
-  const [lastPage, setLastPage] = useState();
+  const [page, setPage] = useState(0);
+  const [lastPage, setLastPage] = useState(0);
   const { promiseInProgress } = usePromiseTracker();
   const [search, setSearch] = useContext(SearchContext);
+  const [hasMore, setHasMore] = useState(true);
+  const [prevY, setPrevY] = useState(0);
   // let lastPage, lastPageLink;
 
-  const getPlants = async () => {
+  const loadingRef = useRef();
+
+  const handleObserver = (entities, observer) => {
+    const y = entities[0].boundingClientRect.y;
+    if (prevY > y) {
+      getPlants(false);
+    }
+    setPrevY(y);
+  };
+
+  useEffect(() => {
+    // Similar to componentDidMount()
+    const options = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 1.0,
+    };
+
+    const observer = new IntersectionObserver(handleObserver, options);
+    if (loadingRef.current) {
+      observer.observe(loadingRef.current);
+    }
+  });
+
+  const getPlants = async (refresh) => {
     try {
+      const pageToFetch = refresh === true ? 1 : page + 1;
+      if (page != 0 && pageToFetch > lastPage) {
+        setHasMore(false);
+        return;
+      }
       const JWTResponse = await axios.get(
         "https://scandalous-classic-wolverine.glitch.me"
       );
@@ -31,10 +69,16 @@ const Plants = () => {
         params: {
           q: search,
           token: JWT,
-          page: page,
+          page: pageToFetch,
         },
       });
-      setPlants(plantsResponse.data.data);
+      if (refresh === true) {
+        setPlants(plantsResponse.data.data);
+      } else {
+        setPlants([...plants, ...plantsResponse.data.data]);
+      }
+
+      setPage(pageToFetch);
       const lastPageLink = plantsResponse.data.links.last;
       setLastPage(
         parseInt(
@@ -56,39 +100,35 @@ const Plants = () => {
   };
 
   useEffect(() => {
-    trackPromise(getPlants());
-  }, [search, page]);
-
-  useEffect(() => {
-    setPage(1);
+    trackPromise(getPlants(true));
   }, [search]);
 
-  const handleClick = (arrow) => {
-    if (arrow === "right" && page === lastPage) {
-      alert("It's already the last page.");
+  const fetchMoreData = () => {
+    if (page >= lastPage) {
+      setHasMore({ hasMore: false });
+      return;
     }
-    if (arrow === "right") {
-      setPage(page + 1);
-    }
-    if (arrow === "left" && page > 1) {
-      setPage(page - 1);
-    }
-    if (arrow === "left" && page === 1) {
-      alert("It's already the first page.");
-    }
+    // a fake async api call like which sends
+    // 20 more records in .5 secs
+    // setTimeout(() => {
+    //   setPage(page + 1);
+    //   getPlants();
+    // }, 500);
   };
 
   return (
     <Fragment>
-      <Wrapper>
-        {promiseInProgress === true ? (
-          <SpinnerImage
-            width="100"
-            height="100"
-            src={LoadingSpinner}
-          ></SpinnerImage>
-        ) : null}
-      </Wrapper>
+      {/* <InfiniteScroll
+        dataLength={plants.length}
+        next={fetchMoreData}
+        hasMore={true}
+        loader={<h4>Loading...</h4>}
+        endMessage={
+          <p style={{ textAlign: "center" }}>
+            <b>Yay! You have seen it all</b>
+          </p>
+        }
+      > */}
       <Wrapper margin="40px 10px 20px 10px">
         {plants.map((plant, index) => (
           <PlantCard
@@ -101,7 +141,16 @@ const Plants = () => {
           />
         ))}
       </Wrapper>
-      <PageButton handleClick={handleClick} />
+      <Wrapper ref={loadingRef}>
+        {promiseInProgress === true ? (
+          <SpinnerImage
+            width="100"
+            height="100"
+            src={LoadingSpinner}
+          ></SpinnerImage>
+        ) : null}
+      </Wrapper>
+      {/* </InfiniteScroll> */}
     </Fragment>
   );
 };
