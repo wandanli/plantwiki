@@ -10,10 +10,8 @@ import { trackPromise } from "react-promise-tracker";
 import { usePromiseTracker } from "react-promise-tracker";
 import PlantCard from "./PlantCard";
 import { Wrapper, SpinnerImage } from "../../theme/globalStyle";
-import PageButton from "./PageButton";
 import LoadingSpinner from "../../images/Spinner-2s-200px.svg";
 import { SearchContext } from "./SearchPage";
-import InfiniteScroll from "react-infinite-scroll-component";
 
 const Plants = () => {
   const [plants, setPlants] = useState([]);
