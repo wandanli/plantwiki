@@ -1,10 +1,15 @@
-import React, { useState, useEffect, Fragment, useContext } from "react";
+import React, {
+  useState,
+  useEffect,
+  Fragment,
+  useContext,
+  useRef,
+} from "react";
 import axios from "axios";
 import { trackPromise } from "react-promise-tracker";
 import { usePromiseTracker } from "react-promise-tracker";
 import PlantCard from "./PlantCard";
 import { Wrapper, SpinnerImage } from "../../theme/globalStyle";
-import PageButton from "./PageButton";
 import LoadingSpinner from "../../images/Spinner-2s-200px.svg";
 import { SearchContext } from "./SearchPage";
 
@@ -14,6 +19,7 @@ const Plants = () => {
   const [lastPage, setLastPage] = useState();
   const { promiseInProgress } = usePromiseTracker();
   const [search, setSearch] = useContext(SearchContext);
+  const loader = useRef(null);
   // let lastPage, lastPageLink;
 
   const getPlants = async () => {
@@ -34,7 +40,7 @@ const Plants = () => {
           page: page,
         },
       });
-      setPlants(plantsResponse.data.data);
+      setPlants(...plants, plantsResponse.data.data);
       const lastPageLink = plantsResponse.data.links.last;
       setLastPage(
         parseInt(
@@ -63,18 +69,26 @@ const Plants = () => {
     setPage(1);
   }, [search]);
 
-  const handleClick = (arrow) => {
-    if (arrow === "right" && page === lastPage) {
-      alert("It's already the last page.");
+  useEffect(() => {
+    var options = {
+      root: null,
+      rootMargin: "20px",
+      threshold: 1.0,
+    };
+    // initialize IntersectionObserver
+    // and attaching to Load More div
+    const observer = new IntersectionObserver(handleObserver, options);
+    if (loader.current) {
+      observer.observe(loader.current);
     }
-    if (arrow === "right") {
-      setPage(page + 1);
-    }
-    if (arrow === "left" && page > 1) {
-      setPage(page - 1);
-    }
-    if (arrow === "left" && page === 1) {
-      alert("It's already the first page.");
+  }, []);
+
+  // here we handle what happens when user scrolls to Load More div
+  // in this case we just update page variable
+  const handleObserver = (entities) => {
+    const target = entities[0];
+    if (target.isIntersecting) {
+      setPage((page) => page + 1);
     }
   };
 
@@ -100,8 +114,11 @@ const Plants = () => {
             link={plant.links.plant}
           />
         ))}
+
+        <div ref={loader}>
+          <h2>Load More</h2>
+        </div>
       </Wrapper>
-      <PageButton handleClick={handleClick} />
     </Fragment>
   );
 };
