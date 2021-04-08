@@ -168,12 +168,34 @@ export const Image = styled.img`
 
 export const SpinnerImageLarge = styled.img`
   width: 100px;
-  height: calc(100vh - 130px);
+  height: 100vh;
 `;
 
 export const SpinnerImage = styled.img`
   width: 100px;
   height: 100px;
+`;
+
+export const FloatingButton = styled(Button)`
+  position: fixed;
+  bottom: 10px;
+  right: 40px;
+  width: 60px;
+  height: 60px;
+  padding-top: 8px;
+  background-color: ${(props) => props.theme.color.secondary};
+  border-radius: 30px;
+  text-align: center;
+  font-size: 4rem;
+  color: ${(props) => props.theme.color.white};
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+  @media ${MaxWidthBreakpoints.small} {
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    padding-top: 4px;
+    font-size: 3rem;
+  } ;
 `;
 
 export default GlobalStyle;

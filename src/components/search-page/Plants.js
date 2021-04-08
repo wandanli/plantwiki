@@ -16,6 +16,7 @@ import {
 } from "../../theme/globalStyle";
 import LoadingSpinner from "../../images/Spinner-2s-200px.svg";
 import { SearchContext } from "./SearchPage";
+import ScrollToTop from "../ScrollToTop";
 
 const Plants = () => {
   const [plants, setPlants] = useState([]);
@@ -130,6 +131,7 @@ const Plants = () => {
           src={LoadingSpinner}
         ></SpinnerImage>
       </Wrapper>
+      <ScrollToTop />
     </Fragment>
   );
 };
