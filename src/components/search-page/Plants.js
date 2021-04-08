@@ -9,7 +9,11 @@ import axios from "axios";
 import { trackPromise } from "react-promise-tracker";
 import { usePromiseTracker } from "react-promise-tracker";
 import PlantCard from "./PlantCard";
-import { Wrapper, SpinnerImage } from "../../theme/globalStyle";
+import {
+  Wrapper,
+  SpinnerImage,
+  SpinnerImageLarge,
+} from "../../theme/globalStyle";
 import LoadingSpinner from "../../images/Spinner-2s-200px.svg";
 import { SearchContext } from "./SearchPage";
 
@@ -40,7 +44,11 @@ const Plants = () => {
           page: page,
         },
       });
-      setPlants(...plants, plantsResponse.data.data);
+      if (page === 1) {
+        setPlants(plantsResponse.data.data);
+      } else {
+        setPlants([...plants, ...plantsResponse.data.data]);
+      }
       const lastPageLink = plantsResponse.data.links.last;
       setLastPage(
         parseInt(
@@ -96,11 +104,11 @@ const Plants = () => {
     <Fragment>
       <Wrapper>
         {promiseInProgress === true ? (
-          <SpinnerImage
+          <SpinnerImageLarge
             width="100"
             height="100"
             src={LoadingSpinner}
-          ></SpinnerImage>
+          ></SpinnerImageLarge>
         ) : null}
       </Wrapper>
       <Wrapper margin="40px 10px 20px 10px">
@@ -114,10 +122,13 @@ const Plants = () => {
             link={plant.links.plant}
           />
         ))}
-
-        <div ref={loader}>
-          <h2>Load More</h2>
-        </div>
+      </Wrapper>
+      <Wrapper ref={loader}>
+        <SpinnerImage
+          width="100"
+          height="100"
+          src={LoadingSpinner}
+        ></SpinnerImage>
       </Wrapper>
     </Fragment>
   );
