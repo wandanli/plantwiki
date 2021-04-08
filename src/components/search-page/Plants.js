@@ -96,7 +96,7 @@ const Plants = () => {
   // in this case we just update page variable
   const handleObserver = (entities) => {
     const target = entities[0];
-    if (target.isIntersecting) {
+    if (target.isIntersecting && page !== lastPage) {
       setPage((page) => page + 1);
     }
   };
@@ -124,7 +124,7 @@ const Plants = () => {
           />
         ))}
       </Wrapper>
-      <Wrapper ref={loader}>
+      <Wrapper hide={page === lastPage ? true : false} ref={loader}>
         <SpinnerImage
           width="100"
           height="100"
