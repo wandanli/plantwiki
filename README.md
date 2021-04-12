@@ -19,6 +19,7 @@ A plant search app using React and the Trefle (a global plants API) to show the 
 - Created a backend server with **Node.js** to request a client-side token and get a **JWT** token which can be usable on the client side
 - Used **React Hook** to perform react state and lifecycle methods inside functional components
 - Used **React Router** for routing functionalities
+- Created **infinite scroll** function with Intersection Observer API
 - Looped through objects and arrays to display data cards
 - CI/CD integration with **Firebase**
 - Responsive layouts depending on device's screen size
