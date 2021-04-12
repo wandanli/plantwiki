@@ -1,19 +1,31 @@
-import React, { useState, useEffect, Fragment, useContext } from "react";
+import React, {
+  useState,
+  useEffect,
+  Fragment,
+  useContext,
+  useRef,
+} from "react";
 import axios from "axios";
 import { trackPromise } from "react-promise-tracker";
 import { usePromiseTracker } from "react-promise-tracker";
 import PlantCard from "./PlantCard";
-import { Wrapper, SpinnerImage } from "../../theme/globalStyle";
-import PageButton from "./PageButton";
+import {
+  Wrapper,
+  SpinnerImage,
+  SpinnerImageLarge,
+} from "../../theme/globalStyle";
 import LoadingSpinner from "../../images/Spinner-2s-200px.svg";
 import { SearchContext } from "./SearchPage";
+import ScrollToTop from "../ScrollToTop";
 
 const Plants = () => {
   const [plants, setPlants] = useState([]);
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState();
-  const { promiseInProgress } = usePromiseTracker();
+  const [firstPageLoad, setFirstPageLoad] = useState(true);
   const [search, setSearch] = useContext(SearchContext);
+  const { promiseInProgress } = usePromiseTracker();
+  const loader = useRef(null);
   // let lastPage, lastPageLink;
 
   const getPlants = async () => {
@@ -34,7 +46,13 @@ const Plants = () => {
           page: page,
         },
       });
-      setPlants(plantsResponse.data.data);
+      if (page === 1) {
+        setPlants(plantsResponse.data.data);
+        setFirstPageLoad(false);
+      } else {
+        setPlants([...plants, ...plantsResponse.data.data]);
+      }
+
       const lastPageLink = plantsResponse.data.links.last;
       setLastPage(
         parseInt(
@@ -45,11 +63,6 @@ const Plants = () => {
           10
         )
       );
-      console.log(
-        lastPage,
-        lastPageLink.indexOf("="),
-        lastPageLink.indexOf("&")
-      );
     } catch (error) {
       console.log(error);
     }
@@ -57,24 +70,33 @@ const Plants = () => {
 
   useEffect(() => {
     trackPromise(getPlants());
-  }, [search, page]);
+  }, [page]);
 
   useEffect(() => {
     setPage(1);
+    trackPromise(getPlants());
   }, [search]);
 
-  const handleClick = (arrow) => {
-    if (arrow === "right" && page === lastPage) {
-      alert("It's already the last page.");
+  useEffect(() => {
+    var options = {
+      root: null,
+      rootMargin: "20px",
+      threshold: 1.0,
+    };
+    // initialize IntersectionObserver
+    // and attaching to Load More div
+    const observer = new IntersectionObserver(handleObserver, options);
+    if (loader.current) {
+      observer.observe(loader.current);
     }
-    if (arrow === "right") {
-      setPage(page + 1);
-    }
-    if (arrow === "left" && page > 1) {
-      setPage(page - 1);
-    }
-    if (arrow === "left" && page === 1) {
-      alert("It's already the first page.");
+  }, []);
+
+  // here we handle what happens when user scrolls to Load More div
+  // in this case we just update page variable
+  const handleObserver = (entities) => {
+    const target = entities[0];
+    if (target.isIntersecting && page !== lastPage) {
+      setPage((page) => page + 1);
     }
   };
 
@@ -101,7 +123,17 @@ const Plants = () => {
           />
         ))}
       </Wrapper>
-      <PageButton handleClick={handleClick} />
+      <Wrapper
+        hide={page === lastPage || firstPageLoad ? true : false}
+        ref={loader}
+      >
+        <SpinnerImage
+          width="100"
+          height="100"
+          src={LoadingSpinner}
+        ></SpinnerImage>
+      </Wrapper>
+      <ScrollToTop />
     </Fragment>
   );
 };
