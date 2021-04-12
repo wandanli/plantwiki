@@ -22,8 +22,9 @@ const Plants = () => {
   const [plants, setPlants] = useState([]);
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState();
-  const { promiseInProgress } = usePromiseTracker();
+  const [firstPageLoad, setFirstPageLoad] = useState(true);
   const [search, setSearch] = useContext(SearchContext);
+  const { promiseInProgress } = usePromiseTracker();
   const loader = useRef(null);
   // let lastPage, lastPageLink;
 
@@ -47,9 +48,11 @@ const Plants = () => {
       });
       if (page === 1) {
         setPlants(plantsResponse.data.data);
+        setFirstPageLoad(false);
       } else {
         setPlants([...plants, ...plantsResponse.data.data]);
       }
+
       const lastPageLink = plantsResponse.data.links.last;
       setLastPage(
         parseInt(
@@ -60,11 +63,6 @@ const Plants = () => {
           10
         )
       );
-      console.log(
-        lastPage,
-        lastPageLink.indexOf("="),
-        lastPageLink.indexOf("&")
-      );
     } catch (error) {
       console.log(error);
     }
@@ -72,10 +70,11 @@ const Plants = () => {
 
   useEffect(() => {
     trackPromise(getPlants());
-  }, [search, page]);
+  }, [page]);
 
   useEffect(() => {
     setPage(1);
+    trackPromise(getPlants());
   }, [search]);
 
   useEffect(() => {
@@ -105,11 +104,11 @@ const Plants = () => {
     <Fragment>
       <Wrapper>
         {promiseInProgress === true ? (
-          <SpinnerImageLarge
+          <SpinnerImage
             width="100"
             height="100"
             src={LoadingSpinner}
-          ></SpinnerImageLarge>
+          ></SpinnerImage>
         ) : null}
       </Wrapper>
       <Wrapper margin="40px 10px 20px 10px">
@@ -124,7 +123,10 @@ const Plants = () => {
           />
         ))}
       </Wrapper>
-      <Wrapper hide={page === lastPage ? true : false} ref={loader}>
+      <Wrapper
+        hide={page === lastPage || firstPageLoad ? true : false}
+        ref={loader}
+      >
         <SpinnerImage
           width="100"
           height="100"

@@ -166,11 +166,6 @@ export const Image = styled.img`
   } ;
 `;
 
-export const SpinnerImageLarge = styled.img`
-  width: 100px;
-  height: 100vh;
-`;
-
 export const SpinnerImage = styled.img`
   width: 100px;
   height: 100px;
