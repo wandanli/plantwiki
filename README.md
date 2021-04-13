@@ -1,4 +1,4 @@
-# Trefle React App
+# PlantWiki React App
 
 ## 🎉 **[Live Demo](https://trefle-react.web.app/)** 🎉
 
