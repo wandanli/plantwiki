@@ -1,7 +1,7 @@
 import React from "react";
 import { FaGithub } from "react-icons/fa";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { MaxWidthBreakpoints } from "../theme/globalStyle";
 
 const StyledLink = styled.a`
   position: absolute;
@@ -9,6 +9,11 @@ const StyledLink = styled.a`
   right: 20px;
   font-size: 4rem;
   color: ${(props) => props.theme.color.black};
+  @media ${MaxWidthBreakpoints.small} {
+    top: 10px;
+    right: 10px;
+    font-size: 2.6rem;
+  } ;
 `;
 
 const GithubLink = () => {

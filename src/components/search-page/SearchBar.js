@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { SearchContext } from "./SearchPage";
-import { Wrapper } from "../../theme/globalStyle";
+import { Wrapper, MaxWidthBreakpoints } from "../../theme/globalStyle";
 import { IconContext } from "react-icons";
 import { FaSearch } from "react-icons/fa";
 
@@ -24,6 +24,9 @@ const Input = styled.input`
   :focus {
     outline: none;
   }
+  @media ${MaxWidthBreakpoints.small} {
+    width: 80%;
+  } ;
 `;
 
 const SearchBar = () => {
