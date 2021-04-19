@@ -8,6 +8,7 @@ import {
 } from "../../theme/globalStyle";
 import SearchBar from "./SearchBar";
 import Plants from "./Plants";
+import GithubLink from "../GithubLink";
 
 export const SearchContext = createContext();
 
@@ -43,6 +44,7 @@ const SearchPage = () => {
         </Paragraph>
         <Plants />
       </SearchProvider>
+      <GithubLink />
     </Container>
   );
 };
