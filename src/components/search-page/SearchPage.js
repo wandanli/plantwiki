@@ -5,10 +5,14 @@ import {
   Wrapper,
   Emoji,
   Paragraph,
+  Image,
+  MaxWidthBreakpoints,
 } from "../../theme/globalStyle";
 import SearchBar from "./SearchBar";
-import Plants from "./Plants";
+// import Plants from "./Plants";
 import GithubLink from "../GithubLink";
+import trefleScreenShot from "../../images/Screen-Shot-trefle.png";
+import styled from "styled-components";
 
 export const SearchContext = createContext();
 
@@ -20,6 +24,14 @@ export const SearchProvider = (props) => {
     </SearchContext.Provider>
   );
 };
+
+const StyledImage = styled(Image)`
+  height: auto;
+  @media ${MaxWidthBreakpoints.small} {
+    width: 100%;
+    height: auto;
+  } ;
+`;
 
 const SearchPage = () => {
   return (
@@ -42,7 +54,16 @@ const SearchPage = () => {
             https://trefle.io/
           </a>
         </Paragraph>
-        <Plants />
+        <Paragraph>Unfortunately, the Trefle API has shut down.</Paragraph>
+        <Wrapper margin="20px 10px">
+          <StyledImage
+            width="600"
+            height="140"
+            src={trefleScreenShot}
+          ></StyledImage>
+        </Wrapper>
+
+        {/* <Plants /> */}
       </SearchProvider>
       <GithubLink />
     </Container>
